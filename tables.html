@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <title>Hot Restaurant</title>
+
+</head>
+
+<body>
+    <div class="jumbotron text-center">
+        <h1>Hot Restaurant</h1>
+        <hr>
+        <h2>Current Reservations and Waiting List</h2>
+        <br>
+        <a href="/"><button type="button" class="btn btn-primary">Home</button></a>
+        <a href="/reservations"><button type="button" class="btn btn-danger">Make Reservation</button></a>
+    </div>
+    <div class="card">
+        <div class="card-header">Current Reservations</div>
+        <div class="card-body">
+            <ul id="tableList" class="list-group"></ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">Waiting List</div>
+        <div class="card-body">
+            <ul id="waitList" class="list-group"></ul>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $.get("/api/customers", function (data) {
+            for (var i = 0; i < data.length; i++) {
+                console.log(data[i]);
+                var tableList = $("#tableList")
+                var listGroupItem = $("<li class='list-group-item'>");
+                listGroupItem.append(
+                    $("<h2>").text("Table #" + (i + 1)),
+                    $("<hr>"),
+                    $("<h2>").text("ID: " + data[i].ID),
+                    $("<h2>").text("Name: " + data[i].customerName),
+                    $("<h2>").text("Email: " + data[i].email),
+                    $("<h2>").text("Phone: " + data[i].phoneNumber)
+                )
+                $("#tableList").append(listGroupItem);
+            }
+        })
+
+        $.get("/api/waitlist", function (data) {
+            for (var i = 0; i < data.length; i++) {
+                console.log(data[i]);
+                var waitList = $("#waitList")
+                var listGroupItem = $("<li class='list-group-item'>");
+                listGroupItem.append(
+                    $("<h2>").text("Table #" + (i + 1)),
+                    $("<hr>"),
+                    $("<h2>").text("ID: " + data[i].ID),
+                    $("<h2>").text("Name: " + data[i].customerName),
+                    $("<h2>").text("Email: " + data[i].email),
+                    $("<h2>").text("Phone: " + data[i].phoneNumber)
+                )
+                $("#waitList").append(listGroupItem);
+            }
+        })
+
+
+    </script>
+
+
+</body>
+
+</html>

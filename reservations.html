@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <title>Hot Restaurant</title>
+</head>
+
+<body>
+    <div class="jumbotron text-center">
+        <h1>Hot Restaurant</h1>
+        <hr>
+        <h2>Make Your Reservation!</h2>
+        <br>
+        <a href="/"><button type="button" class="btn btn-primary">Home</button></a>
+        <a href="/tables"><button type="button" class="btn btn-danger">View Tables</button></a>
+    </div>
+    <div class="card">
+        <div class="card-header">Table Reservations</div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name-input" aria-describedby="nameHelp"
+                    placeholder="Enter Name">
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="phone-number" class="form-control" id="number-input" aria-describedby="numberHelp"
+                    placeholder="XXX-XXX-XXXX">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email-input" aria-describedby="emailHelp"
+                    placeholder="Enter Email Address">
+            </div>
+            <div class="form-group">
+                <label for="ID">Unique ID</label>
+                <input type="number" class="form-control" id="id-input" aria-describedby="idHelp" placeholder="">
+            </div>
+            <button type="button" class="btn btn-primary" id="submit">Submit</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $("#submit").on("click", function(event){
+        event.preventDefault();
+        var newTable = {
+            ID: $("#id-input").val().trim(),
+            customerName: $("#name-input").val().trim(),
+            email: $("#email-input").val().trim(),
+            phoneNumber: $("#number-input").val().trim()
+        };
+
+        $.post("/api/customers", newTable)
+        .then(function(data) {
+          console.log(data);
+          alert("Adding customer...");
+        });
+
+       
+
+    })
+
+    </script>
+
+
+</body>
+
+</html>
